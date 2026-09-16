@@ -32,6 +32,19 @@ server.get('/produtos/ordenados', (req, res) => {
     });
 });
 
+server.get('/produtos/busca/:nome', (req, res) => {
+    
+    const sql = 'SELECT * FROM PRODUTO WHERE nome LIKE ?';
+    const termoBusca = '%' + req.params.nome + '%';
+
+    connection.query(sql, [termoBusca], (erro, resultados) => {
+        if(erro){
+            return res.status(500).json({ erro: erro.message });
+        }
+        return res.json(resultados);
+    });
+});
+
 const PORT = 3025;
 server.listen(PORT, () =>{
     console.log(`Sevidor rodando na porta: ${PORT}`)
