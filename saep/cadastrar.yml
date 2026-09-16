@@ -1,0 +1,31 @@
+info:
+  name: cadastrar
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3025/produtos
+  body:
+    type: json
+    data: |-
+      {
+        "id_categoria":1,
+        "nome":"Piso",
+        "cor":"Cinza",
+        "textura":"Granulada",
+        "peso":"20.00",
+        "unidade_medida":"kg",
+        "aplicacao":"Fundação",
+        "data_validade":"2027-03-20",
+        "estoque_minimo":15,
+        "estoque_atual":8,
+        "preco_unitario":"27.50"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
