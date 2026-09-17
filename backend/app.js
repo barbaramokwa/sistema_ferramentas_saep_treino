@@ -97,19 +97,20 @@ server.delete('/produtos/:id', (req, res) => {
 
     const sql = 'DELETE FROM PRODUTO WHERE id_produto = ?';
 
-    connection.query(sql, [id], (erro) => { 
-        if(erro){
-            return res.status(500).json({erro: erro.message})
+    connection.query(sql, [id], (erro) => {
+        if (erro) {
+            return res.status(500).json({ erro: erro.message });
         }
         res.json({
             mensagem: 'Produto deletado com sucesso!',
-            id: req.params.id
-        })
-    })
-})
+            id: id
+        });
+    });
+});
+
+
 
 const PORT = 3025;
 server.listen(PORT, () =>{
     console.log(`Sevidor rodando na porta: ${PORT}`)
-});
-
+})
