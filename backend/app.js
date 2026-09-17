@@ -70,6 +70,28 @@ server.post('/produtos', (req, res) => {
     })
 })
 
+server.put('/produtos/:id', (req, res) => {
+    const {nome, cor, textura, peso, unidade_medida, aplicacao, 
+        data_validade, estoque_minimo, estoque_atual, preco_unitario, id_categoria
+    } = req.body;
+
+    const { id } = req.params;
+
+    const sql = `UPDATE PRODUTO SET nome = ?, cor = ?, textura = ?, peso = ?, unidade_medida = ?, aplicacao = ?,
+    data_validade = ?, estoque_minimo = ?, estoque_atual = ?, preco_unitario = ?, id_categoria = ? WHERE id_produto = ?`;
+
+    connection.query(sql, [nome, cor, textura, peso, unidade_medida, aplicacao,
+        data_validade, estoque_minimo, estoque_atual, preco_unitario, id_categoria, req.params.id]), (erro, resultado) => {
+        if(erro){
+            return res.status(500).json({erro: erro.message})
+        }
+        res.json({
+            mensagem: 'Produto atualizado com sucesso!',
+            id: req.params.id
+        })
+    }
+})
+
 const PORT = 3025;
 server.listen(PORT, () =>{
     console.log(`Sevidor rodando na porta: ${PORT}`)
